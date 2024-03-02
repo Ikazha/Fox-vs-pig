@@ -20,15 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Deck.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Opponent_Bot.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Header.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
