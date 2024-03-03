@@ -6,16 +6,14 @@
 #include <windows.h>
 #include <vector>
 #include <algorithm>
+#include "dop_functions.h"
+
+
 using namespace std;
-
-int GetRandomNumber(int min, int max);
-void cout_arrray(vector<int> arr);
-void removeElements(vector<int>& vec, int valueToDelete);
+class Player;
 
 
 
-
-//класс отвечающий за колоду карт икарт содержищихся в них
 class Deck {
 private:
 	int count_cards = 36;
@@ -105,6 +103,28 @@ public:
 		cout << " ] " << endl;
 	}
 
+	int get_card(int card_number) {
+		int temp = 0;
+		cout << "size - " << arm.size() << endl;
+		for (int i = 0; i < arm.size(); i++)
+		{
+			cout << "chek position arm - " << i << endl;
+			if (arm[i] == card_number)
+			{
+				cout << "FIND" << endl;
+				arm.erase(arm.begin() + i);
+				temp = card_number;
+				cout_arrray(arm);
+				break;
+			}
+			else
+			{
+				cout << "Not FIND" << endl;
+
+			}
+		}
+		return temp;
+	}
 
 	int check_card(int card_number) {
 		int temp = 0;
@@ -126,36 +146,12 @@ public:
 		}
 		return temp;
 	}
-	
-	int get_card(int card_number) {
-		int temp = 0;
-		cout << "size - " << arm.size() << endl;
-		for (int i = 0; i < arm.size(); i++)
-		{
-			cout << "chek position arm - "<<i << endl;
-			if (arm[i] == card_number)
-			{
-				cout << "FIND" << endl;
-				arm.erase(arm.begin() + i);
-				temp = card_number;
-				cout_arrray(arm);
-				break;
-			}
-			else
-			{
-				cout << "Not FIND" << endl;
-				
-			}
-		}
-		return temp;
-	}
 
 	int size()
 	{
 		return arm.size();
 	}
 
-	
 	int score_plus() {
 		int temp = arm.size() - 3;
 		if (arm.size() > 3)
@@ -173,6 +169,20 @@ public:
 		cout << endl << "Bot score - " << score << endl;
 		return score;
 	}
+
+	void zapros_card(Player& layer) {
+		int random_num_card = GetRandomNumber(0, arm.size() - 1);
+		cout << endl << "У вас есть - " << random_num_card << " ?" << endl;
+
+		if (layer.size() != 0) {
+			cout << endl << endl;
+			for (int i = 0; i < layer.get_card(random_num_card); i++)
+			{
+				arm.push_back(random_num_card);
+			}
+
+		}
+	}
 };
 
 class Player {
@@ -184,7 +194,7 @@ private:
 public:
 
 	// arm_sort() - это функция сортирующая руку по возрастанию значения карт
-	
+
 	void arm_sort() {
 		sort(arm.begin(), arm.end());
 	}
@@ -200,31 +210,17 @@ public:
 		cout << " ] " << endl;
 	}
 
-	void zapros_card(Bot_Opponent& oponent) {
-		cout << "Какую карту вы хотите спросить? : ";
-		int temp;
-		cin >> temp;
-		cout << endl << "У вас есть - " << temp << " ?" << endl;
 
-		if (oponent.size() != 0) {
-			cout << endl << endl;
-			for(int i = 0; i < oponent.get_card(temp); i++)
-			{
-				arm.push_back(temp);
-			}
-			
-		}
-	}
 
 	int get_card(int card_number) {
 		for (int i = 0; i < arm.size(); i++)
 		{
 			if (arm[i] == card_number)
 			{
-					int a = arm.back();
-					arm[arm.size()-1] = arm[i];
-					arm[i] = a;
-					break;
+				int a = arm.back();
+				arm[arm.size() - 1] = arm[i];
+				arm[i] = a;
+				break;
 			}
 		}
 		if (arm.back() == card_number)
@@ -235,11 +231,28 @@ public:
 		}
 	}
 
+	void zapros_card(Bot_Opponent& oponent) {
+		cout << "Какую карту вы хотите спросить? : ";
+		int temp;
+		cin >> temp;
+		cout << endl << "У вас есть - " << temp << " ?" << endl;
+
+		if (oponent.size() != 0) {
+			cout << endl << endl;
+			for (int i = 0; i < oponent.get_card(temp); i++)
+			{
+				arm.push_back(temp);
+			}
+
+		}
+	}
+
+
 	int size() {
 		return arm.size();
 	}
 
-	
+
 	int score_plus() {
 		int temp = arm.size() - 3;
 		if (arm.size() > 3)
@@ -259,22 +272,8 @@ public:
 	}
 };
 
-void cout_arrray(vector<int> arr) {
-	for (int i = 0; i < arr.size(); i++)
-	{
-		cout << "  |" << arr[i] << "|  ";
-	}
-}
-void removeElements(vector<int>& vec, int valueToDelete) {
-	vec.erase(remove(vec.begin(), vec.end(), valueToDelete), vec.end());
-}
 
-int GetRandomNumber(int min, int max)
-{
-	Sleep(500);
-	srand(time(NULL) * rand());
-	int num = min + rand() % (max - min + 1);
 
-	return num;
 
-}
+
+
