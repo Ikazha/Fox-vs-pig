@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
-//#include "opponent.h"
+
 #include "deck.h"
 
 
@@ -13,24 +13,7 @@ int main()
 	
 	Deck deck;
 	Player bob;
-	/*
-	Bot_Opponent bot;
 
-	deck.shafl();
-	for (int i = 0; i < 7; i++)
-	{
-		bob.take_card(deck);
-		bot.take_card(deck);
-	}
-	
-	while (true)
-	{
-		bob.zapros_card(bot);
-		bot.zapros_card(bob);
-		bob.take_card(deck);
-		bot.take_card(deck);
-	    cout << endl << bob.score_plus() << "   " << bot.score_plus() << endl;
-	}*/
 	
 	deck.shafl();
 	for (int i = 0; i < 7; i++)
